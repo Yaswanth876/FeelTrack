@@ -18,20 +18,29 @@ id2label = {
 }
 
 def emotion_detector(text_to_analyse):
-    # Tokenize input text
-    inputs = tokenizer(text_to_analyse, return_tensors="pt", truncation=True)
+    # ✅ Tokenize input text with proper truncation and padding
+    inputs = tokenizer(
+        text_to_analyse,
+        return_tensors="pt",
+        truncation=True,
+        max_length=512,
+        padding=True
+    )
 
-    # Run through model
-    outputs = model(**inputs)
-    probs = softmax(outputs.logits, dim=1)[0]  # Take the first row (single sentence)
+    # ✅ Run input through the model
+    with torch.no_grad():  # Ensures faster inference without tracking gradients
+        outputs = model(**inputs)
 
-    # Convert logits to dictionary of emotion: score
+    # ✅ Convert logits to probabilities
+    probs = softmax(outputs.logits, dim=1)[0]
+
+    # ✅ Map predictions to emotion labels
     emotion_scores = {id2label[i]: float(probs[i]) for i in range(len(probs))}
 
-    # Sort emotions by probability
+    # ✅ Sort emotions by confidence score
     sorted_emotions = dict(sorted(emotion_scores.items(), key=lambda item: item[1], reverse=True))
 
-    # Add dominant emotion to the dictionary
+    # ✅ Add dominant emotion
     top_emotion = max(emotion_scores, key=emotion_scores.get)
     sorted_emotions['dominant_emotion'] = top_emotion
 
