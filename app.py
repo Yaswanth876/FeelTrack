@@ -1,7 +1,11 @@
-from flask import Flask, request, jsonify
-from EmotionDetection import emotion_detector  # ✅ Import from your module
+from flask import Flask, request, jsonify, render_template
+from EmotionDetection import emotion_detector  # Your model function
 
 app = Flask(__name__)
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")  # Serve the HTML page
 
 @app.route("/emotionDetector", methods=["GET"])
 def analyze_emotion():
@@ -14,10 +18,6 @@ def analyze_emotion():
             "error": "Emotion detection failed.",
             "details": str(e)
         }), 500
-
-@app.route("/", methods=["GET"])
-def home():
-    return jsonify({"message": "FeelTrack Emotion Detection API is up ✅"})
 
 if __name__ == '__main__':
     app.run(debug=True)
