@@ -2,7 +2,7 @@
 
 FeelTrack is a lightweight NLP web app that detects emotions from user input using a fine-tuned BERT model. It processes natural language text and predicts emotional tones like joy, sadness, fear, anger, love, etc., in real-time.
 
-![FeelTrack Demo](https://img.shields.io/badge/BERT-Emotion-blue) ![Status](https://img.shields.io/badge/Status-Prototype-green) ![License](https://img.shields.io/github/license/Yaswanth876/FeelTrack)
+![FeelTrack Demo](https://img.shields.io/badge/BERT-Emotion-blue) ![Status](https://img.shields.io/badge/Status-Prototype-green) ![License](https://img.shields.io/github/LICENSE/Yaswanth876/FeelTrack)
 
 ---
 
