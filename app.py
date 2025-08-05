@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, render_template, jsonify
 from EmotionDetection import emotion_detector
 import torch
@@ -18,12 +19,11 @@ def detect_emotion():
 
     try:
         result = emotion_detector(text_to_analyze)
-
-        # Return only raw emotion data (JSON) — frontend will handle formatting
         return jsonify(result)
 
     except Exception as e:
         return jsonify({"error": f"❌ Error: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # default 10000 for local dev
+    app.run(host='0.0.0.0', port=port)

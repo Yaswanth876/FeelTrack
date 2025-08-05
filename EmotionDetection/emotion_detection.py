@@ -2,22 +2,29 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from torch.nn.functional import softmax
 import torch
 
-# Load BERT model and tokenizer only once (reuse across calls)
-model_name = "bhadresh-savani/bert-base-go-emotion"
+# ✅ Load smaller BERT model and tokenizer only once
+model_name = "boltuix/bert-emotion"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
 
-# Get label mapping from model config
-id2label = model.config.id2label
+# ✅ Manually define label mapping (boltuix model doesn't have it in config)
+id2label = {
+    0: "anger",
+    1: "fear",
+    2: "joy",
+    3: "love",
+    4: "sadness",
+    5: "surprise"
+}
 
 def emotion_detector(text_to_analyse):
     # Tokenize input text
     inputs = tokenizer(text_to_analyse, return_tensors="pt", truncation=True)
-    
+
     # Run through model
     outputs = model(**inputs)
     probs = softmax(outputs.logits, dim=1)[0]  # Take the first row (single sentence)
-    
+
     # Convert logits to dictionary of emotion: score
     emotion_scores = {id2label[i]: float(probs[i]) for i in range(len(probs))}
 
