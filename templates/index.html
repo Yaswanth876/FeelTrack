@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FeelTrack - Emotion Detector using BERT</title>
+    <title>FeelTrack - Emotion Detector</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="./static/mywebscript.js" defer></script>
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #000000;
+            color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .center-heading {
@@ -15,19 +16,41 @@
             margin-bottom: 20px;
         }
         .card {
+            background-color: #1a1a1a;
+            color: #ffffff;
             max-width: 750px;
             margin: 40px auto;
             padding: 25px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
             border: none;
             border-radius: 12px;
         }
         .form-control {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
             resize: none;
         }
+        .form-control::placeholder {
+            color: #aaaaaa;
+        }
         .btn-primary {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
             font-size: 1.1rem;
             padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+        }
+        #system_response {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
         }
         #system_response ul {
             padding-left: 0;
@@ -37,10 +60,10 @@
             text-align: center;
             padding: 15px;
             font-size: 14px;
-            color: #777;
+            color: #aaaaaa;
         }
         footer a {
-            color: #0077b5;
+            color: #aaaaaa;
             text-decoration: none;
         }
     </style>
@@ -48,8 +71,8 @@
 <body>
     <div class="card">
         <div class="card-body">
-            <h1 class="center-heading">🧠 FeelTrack - Emotion Detector</h1> 
-            <p class="text-center text-muted">Powered by BERT and Deep Learning 🚀</p>
+            <h1 class="center-heading">FeelTrack</h1> 
+            <p class="text-center text-muted" style="color:#bbbbbb;">Powered by BERT and Deep Learning </p>
 
             <div class="form-group">
                 <label for="textToAnalyze"><strong>Enter your text to analyze emotional tone:</strong></label>
@@ -57,11 +80,11 @@
             </div>
 
             <div class="text-center mb-4">
-                <button onclick="RunSentimentAnalysis()" class="btn btn-primary btn-lg">🔍 Run Emotion Analysis</button>
+                <button onclick="RunSentimentAnalysis()" class="btn btn-primary btn-lg">Analyze</button>
             </div>
 
             <h4><strong>🧾 Analysis Result:</strong></h4>
-            <div id="system_response" class="mt-3 p-3 bg-light border rounded"></div>
+            <div id="system_response" class="mt-3 p-3 rounded"></div>
         </div>
     </div>
 
